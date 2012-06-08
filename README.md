@@ -1,4 +1,0 @@
-GotoConsideredUsefull
-=====================
-
-Zouba
