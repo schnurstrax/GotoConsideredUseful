@@ -1,5 +1,6 @@
 package de.stusti.GotoConsideredUseful;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -8,9 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class GotoConsideredUsefulActivity extends Activity {
 	
@@ -42,8 +41,18 @@ public class GotoConsideredUsefulActivity extends Activity {
         listView.setAdapter(adap);
 	}
 	
-	protected void callGeo(String destination) {
-    	Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + destination));
+	protected void callGeo(String destination){
+		AddressSearcher addressSearcher = new AddressSearcher(this);
+		String query = destination;
+		
+		try {
+			query = addressSearcher.getCountryExtendedQuery(destination);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+    	Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + query));
         startActivity(i);
     }
 	
