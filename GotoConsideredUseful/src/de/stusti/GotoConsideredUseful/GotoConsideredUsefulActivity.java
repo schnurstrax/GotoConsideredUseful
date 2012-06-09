@@ -4,49 +4,50 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.*;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
 
-public class GotoConsideredUsefulActivity extends FragmentActivity {
-	
+public class GotoConsideredUsefulActivity extends Activity {
+	private ListView listView1;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.hauptteil);
 		EventHandler eventHandler = new EventHandler(this);
-<<<<<<< HEAD
-		Date today = new Date();
-		ArrayList<Event> events = eventHandler.getEvents(today);
-		frag f;
-		FragmentTransaction fg = getSupportFragmentManager().beginTransaction();
-		for (Event e:events) {
-		f = new frag(e.getTitle(), e.getDescription());
-		fg.add(R.id.linearStuff, f);
-		}
-		fg.commit();
-		
-
-=======
 		Calendar calendar = Calendar.getInstance();		
 		long today = calendar.getTimeInMillis();
 		int hours = 48;
 		ArrayList<Event> events = eventHandler.getEvents(today, hours);
+		ArrayList<Event> eventsWithLocation = eventHandler.getEventsWithLocation(today, hours);
 		 
 		//ContactHandler contactHandler = new ContactHandler(this);
 		
-		TextView tv = new TextView(this);
-		String title = "\n";
+		//TextView tv = new TextView(this);
+		//String title = "\n";
 
-	    for(Event event: events) {
-	    	title += event.getTitle() + "\n";
-		}
-		tv.setText(events.size() + " Titel: " + title);
+	    //for(Event event: events) {
+	    //	title += event.getTitle() + "\n";
+		//}
+		//tv.setText(events.size() + "   " + eventsWithLocation.size() + " Titel: " + title);
 			
-		setContentView(tv);
->>>>>>> b674c05cf6fd0dbcb9950a1b44138904b4138632
+		//setContentView(tv);
+		Event[] ev = new Event[events.size()];
+		for (int i=0; i<events.size(); i++) {
+			ev[i] = events.get(i);
+		}
+		adapterThingy adap = new adapterThingy(this, R.layout.termin_listitem, ev);
+		
+		listView1 = (ListView)findViewById(R.id.listView1);
+        
+        View header = (View)getLayoutInflater().inflate(R.layout.termin_listitem, null);
+        listView1.addHeaderView(header);
+       
+        listView1.setAdapter(adap);
 	}
 	
 	protected void callGeo(String destination) {

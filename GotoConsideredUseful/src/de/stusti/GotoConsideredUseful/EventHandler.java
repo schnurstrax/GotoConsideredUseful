@@ -32,6 +32,23 @@ public class EventHandler {
 		return events;
 	}
 	
+	public ArrayList<Event> getEventsWithLocation(long now, int hours) {	
+		
+		Cursor cursor = getCursor(now, hours);	
+		int numberOfEvents = cursor.getCount();		
+		ArrayList<Event> events = new ArrayList<Event>();
+
+		cursor.moveToFirst();		  
+		for (int i = 0; i < numberOfEvents; i++) {		
+			Event event = getEventFromCurrentPosition(cursor);
+			events.add(event);		
+	        cursor.moveToNext();
+	    }		
+	    cursor.close();
+		return events;
+	}
+	
+	
 	protected Event getEventFromCurrentPosition(Cursor cursor) {
 		Event event = new Event();		
 		
