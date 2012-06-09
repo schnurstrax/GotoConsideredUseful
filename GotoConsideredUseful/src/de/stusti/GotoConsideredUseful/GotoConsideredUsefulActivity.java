@@ -38,10 +38,6 @@ public class GotoConsideredUsefulActivity extends Activity {
 		
 		// Try to add locations using contact information.
 		ContactHandler contactHandler = new ContactHandler(this);
-		//ArrayList<Contact> contacts = contactHandler.getContactsWithAddresses();
-		//Log.v("CONTACT__XXX", ""+contacts.get(1).getName());
-//		Log.v("CONTACT__XXX1", ""+contacts.size());
-//		Log.v("CONTACT__XXX2", ""+contacts.get(1).getName());
 		contactHandler.addLocationsToEvents(events);
 		
 		// Convert ArrayList to Event-Array.
