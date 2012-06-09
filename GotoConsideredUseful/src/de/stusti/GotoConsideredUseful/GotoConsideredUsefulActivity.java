@@ -18,11 +18,10 @@ public class GotoConsideredUsefulActivity extends Activity {
 
 		EventHandler eventHandler = new EventHandler(this);
 		Calendar calendar = Calendar.getInstance();		
-		long today = calendar.getTimeInMillis();
-		int hours = 48;
+		long today = calendar.getTimeInMillis() - 50*60*60*1000;
+		int hours = 148;
 		ArrayList<Event> events = eventHandler.getEvents(today, hours);
-		 
-		//ContactHandler contactHandler = new ContactHandler(this);
+		ArrayList<Event> eventsWithLocation = eventHandler.getEventsWithLocation(today, hours);
 		
 		TextView tv = new TextView(this);
 		String title = "\n";
@@ -30,7 +29,7 @@ public class GotoConsideredUsefulActivity extends Activity {
 	    for(Event event: events) {
 	    	title += event.getTitle() + "\n";
 		}
-		tv.setText(events.size() + " Titel: " + title);
+		tv.setText(events.size() + "   " + eventsWithLocation.size() + " Titel: " + title);
 			
 		setContentView(tv);
 	}

@@ -32,6 +32,23 @@ public class EventHandler {
 		return events;
 	}
 	
+	public ArrayList<Event> getEventsWithLocation(long now, int hours) {	
+		
+		Cursor cursor = getCursorWithLocation(now, hours);	
+		int numberOfEvents = cursor.getCount();		
+		ArrayList<Event> events = new ArrayList<Event>();
+
+		cursor.moveToFirst();		  
+		for (int i = 0; i < numberOfEvents; i++) {		
+			Event event = getEventFromCurrentPosition(cursor);
+			events.add(event);		
+	        cursor.moveToNext();
+	    }		
+	    cursor.close();
+		return events;
+	}
+	
+	
 	protected Event getEventFromCurrentPosition(Cursor cursor) {
 		Event event = new Event();		
 		
@@ -45,20 +62,57 @@ public class EventHandler {
 		return event;
 	}
 	
-	protected Cursor getCursor(long now, int hours) {		
-		//Uri calendars = Uri.parse("content://com.android.calendar"+ "/calendars");
-		Uri calendars = Uri.parse("content://com.android.calendar/events");
-		String[] projection = fieldNames;
-		
+	protected Cursor getCursor(long now, int hours) {				
+
+		Cursor managedCursor = this.activity.managedQuery(getCalendarsUri(), 
+				getProjection(),  
+				getSelectionForTimeInterval(now, hours), 
+				getEmptySelectionArgs(), 
+				getSortOrderStartDateAscending());
+		return managedCursor;
+	}	
+	
+	protected Cursor getCursorWithLocation(long now, int hours) {		
+	    
+		Cursor managedCursor = this.activity.managedQuery(getCalendarsUri(), 
+				getProjection(), 
+				getSelectionForTimeIntervalWithLocation(now, hours), 
+				getEmptySelectionArgs(), 
+				getSortOrderStartDateAscending());
+		return managedCursor;
+	}	
+	
+	protected Uri getCalendarsUri() {
+		return Uri.parse("content://com.android.calendar/events");
+	}
+	
+	protected String[] getProjection() {
+		return fieldNames;
+	}
+	
+	protected String getSelectionForTimeInterval(long now, int hours)
+	{
 		long end = now + hours*60*60*1000;		
 	    String dtStart = Long.toString(now);
 	    String dtEnd = Long.toString(end);
-	    
-		String selection = "((" + "dtstart" + " >= '"+dtStart+"') AND (" + "dtend" + " <= '"+dtEnd+"') AND ( 0 < '"+dtEnd+"'))";
-	    String[] selectionArgs = new String[] {};
-	    String sortOrder = "dtstart ASC";
-	    
-		Cursor managedCursor = this.activity.managedQuery(calendars, projection, selection, selectionArgs, sortOrder);
-		return managedCursor;
-	}	
+        
+	    String selection = "((" + "dtstart" + " >= '"+dtStart+"') AND (" + "dtend" + " <= '"+dtEnd+"') AND ( 0 < '"+dtEnd+"'))";
+	    return selection;
+	}
+	
+	protected String getSelectionForTimeIntervalWithLocation(long now, int hours)
+	{
+	    String selection = "(" + getSelectionForTimeInterval(now, hours) + " AND (eventLocation NOT NULL))";	    
+	    return selection;
+	}
+	
+	
+	protected String getSortOrderStartDateAscending(){
+		 return "dtstart ASC";
+	}
+	
+	protected String[] getEmptySelectionArgs() {
+		String[] selectionArgs = new String[] {};
+		return selectionArgs;
+	}
 }
