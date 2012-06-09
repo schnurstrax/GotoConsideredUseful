@@ -1,11 +1,16 @@
 package de.stusti.GotoConsideredUseful;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
+import android.location.Criteria;
 import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import com.google.android.maps.GeoPoint;
@@ -37,29 +42,63 @@ public class MapViewActivity extends MapActivity {
 
 	    Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
 	    
-	    AddressOverlay itemizedoverlay = new AddressOverlay(drawable, this);
-	    	
-	    OverlayItem overlayitem; 
+	    AddressOverlay itemizedOverlay = new AddressOverlay(drawable, this);
 	    
 		try {
-			overlayitem = getOverlayByAddress(marker, "Test");
-			itemizedoverlay.addOverlay(overlayitem);
-		    mapOverlays.add(itemizedoverlay);
-		    mapView.getController().setCenter(overlayitem.getPoint());
+			OverlayItem overlayItem = new OverlayItem(getNearestPointByAddress(marker), "marker", "");
+			itemizedOverlay.addOverlay(overlayItem);
+		    mapOverlays.add(itemizedOverlay);
+		    mapView.getController().setCenter(overlayItem.getPoint());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}      
-	    
+		}         
+	}
+	
+	private GeoPoint getNearestPointByAddress(String marker) throws IOException {
+		List<GeoPoint> points = getPointsByAddress(marker);
+
+		return getNearest(getBestLocation(), points);
 	}
 
-	private OverlayItem getOverlayByAddress(String address, String name) throws IOException {
+	private List<GeoPoint> getPointsByAddress(String address) throws IOException {
 	    Geocoder geo = new Geocoder(this);
-	    List<Address> addresses = geo.getFromLocationName(address, 5);
-	    OverlayItem overlay = new OverlayItem(
-	            new GeoPoint((int) (addresses.get(0).getLatitude() * 1E6),(int)(addresses.get(0).getLongitude()*1E6)),
-	                name, "");
-	    return overlay;
+	    List<Address> addresses = geo.getFromLocationName(address, 20);	  
+	    
+	    return convertAddressesToPoints(addresses);
+	}
+	
+	private List<GeoPoint> convertAddressesToPoints(List<Address> addresses) {
+		List<GeoPoint> points = new LinkedList<GeoPoint>();
+		
+		for (Address address: addresses) {
+			points.add(new GeoPoint((int) (address.getLatitude() * 1E6), (int)(address.getLongitude()*1E6)));
+		}
+		
+		return points;
+	}
+	
+	private Location getBestLocation() {
+		LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+		return locationManager.getLastKnownLocation(locationManager.getBestProvider(new Criteria(), true));
+	}
+	
+	private GeoPoint getNearest(Location location, List<GeoPoint> points) {
+		float[] result = new float[3];
+		float distance;
+		float minDistance = Float.POSITIVE_INFINITY;
+		GeoPoint nearestPoint = null;
+		
+		for (GeoPoint point: points) {
+			Location.distanceBetween(location.getLatitude(), location.getLongitude(), point.getLatitudeE6()/1E6, point.getLongitudeE6()/1E6, result);
+			distance = result[0];
+			if (distance < minDistance) {
+				minDistance = distance;
+				nearestPoint = point;
+			}
+		}
+		
+		return nearestPoint;
 	}
 
 }
