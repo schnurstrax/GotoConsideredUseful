@@ -72,7 +72,7 @@ public class adapterThingy extends ArrayAdapter<Event>{
 			}
 		});
         LinearLayout l = (LinearLayout)row2.findViewById(R.id.asdflayout);
-        l.setVisibility(0);
+        l.setVisibility(View.VISIBLE);
         return row2;
     }
    
