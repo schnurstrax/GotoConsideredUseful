@@ -1,21 +1,13 @@
 package de.stusti.GotoConsideredUseful;
 
+import java.util.ArrayList;
+import java.util.Date;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.app.Activity;
-import android.app.ListActivity;
-import android.database.Cursor;
-import android.provider.ContactsContract;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
 
 public class GotoConsideredUsefulActivity extends Activity {
 	
@@ -23,6 +15,15 @@ public class GotoConsideredUsefulActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
 
+		EventHandler eventHandler = new EventHandler(this);
+		Date today = new Date();
+		ArrayList<Event> events = eventHandler.getEvents(today);
+		 
+		//ContactHandler contactHandler = new ContactHandler(this);
+		
+		TextView tv = new TextView(this);
+		tv.setText("Titel: " + events.get(0).getTitle());
+		setContentView(tv);
 	  // LIST ADAPTER WITH CURSOR
       Cursor cursor = getContactCursor();
       
