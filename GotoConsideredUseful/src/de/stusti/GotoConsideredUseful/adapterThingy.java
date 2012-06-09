@@ -27,7 +27,7 @@ public class adapterThingy extends ArrayAdapter<Event>{
         View row = convertView;
         WeatherHolder holder = null;
        
-        if(row == null)
+        if((((TextView) row.findViewById(R.id.event)).getText() == "") && (((TextView) row.findViewById(R.id.location)).getText() == ""))
         {
             LayoutInflater inflater = ((Activity)context).getLayoutInflater();
             row = inflater.inflate(layoutResourceId, parent, false);
