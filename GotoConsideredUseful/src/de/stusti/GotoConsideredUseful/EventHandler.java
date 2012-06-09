@@ -6,7 +6,6 @@ import java.util.Date;
 import android.app.Activity;
 import android.database.Cursor;
 import android.net.Uri;
-import android.text.format.Time;
 
 public class EventHandler {
 
@@ -39,10 +38,6 @@ public class EventHandler {
 		event.setCalendarId(cursor.getInt(0));
 		event.setTitle(cursor.getString(1));
 		event.setDescription(cursor.getString(2));
-		long startDate = cursor.getLong(3);
-		long endDate = cursor.getLong(4);
-		Date start = new Date(startDate);
-		long startLong = start.getTime();
 		event.setStartDate(new Date(cursor.getLong(3)));
 		event.setEndDate(new Date(cursor.getLong(4)));
 		event.setLocation(cursor.getString(5));	
@@ -56,13 +51,28 @@ public class EventHandler {
 
 		String[] projection = fieldNames;
 		
-		String selection = "((" + "dtstart"
-	            + " >= ?) AND (" + "dtend" + " <= ?))";
+		Date start = new Date();
+		Date end = new Date();
+		end.setDate(10);
 	    
-	    Date end = new Date(now.getYear(), now.getMonth(), now.getHours() + hours);	   
-	    
-	    String dtStart = Long.toString(now.getTime());
+	    String dtStart = Long.toString(start.getTime());
 	    String dtEnd = Long.toString(end.getTime());
+	    
+		String selection = "((" + "dtstart" + " >= "+dtStart+") AND (" + "dtend" + " <= "+dtEnd+"))";
+		
+	    
+	    //Date end = new Date(now.getYear(), now.getMonth(), now.getDay() , now.getHours() + hours, 59);	 
+		//Date end = new Date(2012, 6, 7, 0, 0, 0);
+		
+		//Date start = new Date(2011, 6, 1, 0, 0, 0);
+		//Date end = new Date(2012, 6, 7, 0, 0, 0);
+//		
+//		Date start = new Date();
+//		Date end = new Date();
+//		end.setDate(10);
+//	    
+//	    String dtStart = Long.toString(start.getTime());
+//	    String dtEnd = Long.toString(end.getTime());
 	    		
 //	    t.set(59, 59, 23, t.monthDay, t.month, t.year);
 //	    String dtEnd = Long.toString(t.toMillis(false));
@@ -80,7 +90,8 @@ public class EventHandler {
 //	    
 //	    String[] selectionArgs = new String[] { dtStart, dtEnd };
 
-		String[] selectionArgs = new String[] {dtStart, dtEnd};
+		//String[] selectionArgs = new String[] {dtStart, dtEnd};
+	    String[] selectionArgs = null;
 	    String sortOrder = null;	
 	    
 		Cursor managedCursor = this.activity.managedQuery(calendars, projection, selection, selectionArgs, sortOrder);
