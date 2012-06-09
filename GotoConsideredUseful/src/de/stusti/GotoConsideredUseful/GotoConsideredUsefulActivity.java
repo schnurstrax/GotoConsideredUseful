@@ -1,6 +1,5 @@
 package de.stusti.GotoConsideredUseful;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -8,30 +7,39 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.ListView;
 
 public class GotoConsideredUsefulActivity extends Activity {
+	
+	protected ListView listView;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
 
+	  	// Get events from calendar.
 		EventHandler eventHandler = new EventHandler(this);
 		Calendar calendar = Calendar.getInstance();		
-		long today = calendar.getTimeInMillis() - 50*60*60*1000;
-		int hours = 148;
-		ArrayList<Event> events = eventHandler.getEvents(today, hours);
-		ArrayList<Event> eventsWithLocation = eventHandler.getEventsWithLocation(today, hours);
 		
-		TextView tv = new TextView(this);
-		String title = "\n";
+		long today = calendar.getTimeInMillis();
+		int hours = 448;
+		ArrayList<Event> events = eventHandler.getEvents(today, hours);
+		//ArrayList<Event> eventsWithLocation = eventHandler.getEventsWithLocation(today, hours);		
+		
+		// Convert ArrayList to Event-Array.
+		Event []eventArray = new Event[events.size()];
+		events.toArray(eventArray);
 
-	    for(Event event: events) {
-	    	title += event.getTitle() + "\n";
-		}
-		tv.setText(events.size() + "   " + eventsWithLocation.size() + " Titel: " + title);
-			
-		setContentView(tv);
+		// Add events to the listView.
+	  	setContentView(R.layout.main2);
+	  	
+		adapterThingy adap = new adapterThingy(this, R.layout.termin_listitem, eventArray);
+		listView = (ListView)findViewById(R.id.listView1);       
+        View header = (View)getLayoutInflater().inflate(R.layout.termin_listitem, null);
+        listView.addHeaderView(header);
+    
+        listView.setAdapter(adap);
 	}
 	
 	protected void callGeo(String destination) {

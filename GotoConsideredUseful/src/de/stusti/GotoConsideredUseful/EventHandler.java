@@ -1,7 +1,6 @@
 package de.stusti.GotoConsideredUseful;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -32,8 +31,7 @@ public class EventHandler {
 		return events;
 	}
 	
-	public ArrayList<Event> getEventsWithLocation(long now, int hours) {	
-		
+	public ArrayList<Event> getEventsWithLocation(long now, int hours) {
 		Cursor cursor = getCursorWithLocation(now, hours);	
 		int numberOfEvents = cursor.getCount();		
 		ArrayList<Event> events = new ArrayList<Event>();
