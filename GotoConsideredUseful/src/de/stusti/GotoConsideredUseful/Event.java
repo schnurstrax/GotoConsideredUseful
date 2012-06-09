@@ -1,6 +1,5 @@
 package de.stusti.GotoConsideredUseful;
 
-import java.util.Date;
 
 public class Event {
 
@@ -9,14 +8,14 @@ public class Event {
 	private String description;
 	private String location;
 	
-	private Date startDate;
-	private Date endDate;
+	private long startDate;
+	private long endDate;
 	
 	public Event() {
 		
 	}
 
-	public Event(int id, String title, String description, String location, Date start, Date end) {
+	public Event(int id, String title, String description, String location, long start, long end) {
 		this.calendar_id = id;
 		this.title = title;
 		this.description = description;
@@ -42,11 +41,11 @@ public class Event {
 		return location;
 	}
 
-	public Date getStartDate() {
+	public long getStartDate() {
 		return startDate;
 	}
 
-	public Date getEndDate() {
+	public long getEndDate() {
 		return endDate;
 	}
 	
@@ -66,11 +65,11 @@ public class Event {
 		this.location = location;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(long startDate) {
 		this.startDate = startDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(long endDate) {
 		this.endDate = endDate;
 	}
 

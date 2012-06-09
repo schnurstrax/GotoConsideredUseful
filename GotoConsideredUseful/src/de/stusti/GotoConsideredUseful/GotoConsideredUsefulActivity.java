@@ -1,7 +1,8 @@
 package de.stusti.GotoConsideredUseful;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,19 +17,20 @@ public class GotoConsideredUsefulActivity extends Activity {
 	  super.onCreate(savedInstanceState);
 
 		EventHandler eventHandler = new EventHandler(this);
-		Date today = new Date();
-		int hours = 5;
+		Calendar calendar = Calendar.getInstance();		
+		long today = calendar.getTimeInMillis();
+		int hours = 48;
 		ArrayList<Event> events = eventHandler.getEvents(today, hours);
 		 
 		//ContactHandler contactHandler = new ContactHandler(this);
 		
 		TextView tv = new TextView(this);
-		String titel = "";
-		
-		for(int i = 0; i<events.size(); i++) {
-			titel += events.get(i).getTitle();
+		String title = "\n";
+
+	    for(Event event: events) {
+	    	title += event.getTitle() + "\n";
 		}
-		tv.setText(events.size() + "  Titel: " + titel);
+		tv.setText(events.size() + " Titel: " + title);
 			
 		setContentView(tv);
 	}
