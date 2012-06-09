@@ -17,11 +17,21 @@ public class ContactHandler {
 	
 	public void addLocationsToEvents(ArrayList<Event> events) {
 		
+		//ArrayList<> 
+		
 		for(Event event: events) {
 			if ((null == event.getLocation()) || ("" == event.getLocation())) {
-				
+				String[] titleWords = event.getTitle().split(" ");
+				ArrayList<String> locationProposals = getLocationProposals(titleWords);
+				event.setLocationProposals(locationProposals);
 			}
 		}
+	}
+	
+	protected ArrayList<String> getLocationProposals(String[] titleWords) {
+		ArrayList<String> proposals = new ArrayList<String>();
+		
+		return proposals;
 	}
 	
 //	public ArrayList<Event> getContacts() {
@@ -45,26 +55,17 @@ public class ContactHandler {
 //          // The "text1" view defined in the XML template
 //          new int[] {android.R.id.text1});
 //  
-//  setListAdapter(listAdapter);
-
-  //ListView lv = getListView();
-  //lv.setTextFilterEnabled(true);
-
-//  lv.setOnItemClickListener(new OnItemClickListener() {
-//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//      // When clicked, show a toast with the TextView text
-//      Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
-//          Toast.LENGTH_SHORT).show();
-//      callGeo("Berlin Hbf");
-//    }
 //  });
 	
-	protected Cursor getCursor() {		
-        Uri contactsUri = ContactsContract.Contacts.CONTENT_URI;       
+	protected Cursor getCursor() {	
+		
+        Uri contactsUri = ContactsContract.Contacts.CONTENT_URI;  
+        
         String[] projection = new String[] {
                 ContactsContract.Contacts._ID,
                 ContactsContract.Contacts.DISPLAY_NAME
         };       
+        
         String selection = ContactsContract.Contacts.IN_VISIBLE_GROUP + " = '" + "1" + "'";       
         String[] selectionArgs = null;      
         String sortOrder = ContactsContract.Contacts.DISPLAY_NAME + " COLLATE LOCALIZED ASC";

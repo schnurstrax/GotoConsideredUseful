@@ -1,5 +1,7 @@
 package de.stusti.GotoConsideredUseful;
 
+import java.util.ArrayList;
+
 
 public class Event {
 
@@ -7,6 +9,7 @@ public class Event {
 	private String title;
 	private String description;
 	private String location;
+	private ArrayList<String> locationProposals = new ArrayList<String>();
 	
 	private long startDate;
 	private long endDate;
@@ -24,7 +27,12 @@ public class Event {
 		this.startDate = start;
 		this.endDate = end;
 	}
+
 		
+	public void addLocationProposal(String proposal) {
+		this.locationProposals.add(proposal);
+	}
+	
 	public int getCalendarId() {
 		return calendar_id;
 	}
@@ -49,6 +57,10 @@ public class Event {
 		return endDate;
 	}
 	
+	public ArrayList<String> getLocationProposals() {
+		return locationProposals;
+	}
+
 	public void setCalendarId(int calendar_id) {
 		this.calendar_id = calendar_id;
 	}
@@ -72,5 +84,8 @@ public class Event {
 	public void setEndDate(long endDate) {
 		this.endDate = endDate;
 	}
-
+	
+	public void setLocationProposals(ArrayList<String> locationProposals) {
+		this.locationProposals = locationProposals;
+	}
 }
