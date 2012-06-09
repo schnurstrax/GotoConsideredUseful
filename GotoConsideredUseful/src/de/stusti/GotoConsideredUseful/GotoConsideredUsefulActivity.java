@@ -56,9 +56,8 @@ public class GotoConsideredUsefulActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		
+		//remove gps 
 		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-		
 		locationManager.removeUpdates(this.locationListener);
 	}
 	
