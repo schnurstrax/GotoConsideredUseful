@@ -17,9 +17,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:height="30dp"
-            android:text="Mittagessen"
             android:textSize="18dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:text="" />
 
         <LinearLayout
             android:id="@+id/linearLayout1"
@@ -42,8 +42,8 @@
             android:id="@+id/location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gründerhaus"
-            android:textSize="16dp" />
+            android:textSize="16dp" 
+            android:text="" />
         </LinearLayout>
 
         
