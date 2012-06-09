@@ -71,10 +71,8 @@ public class adapterThingy extends ArrayAdapter<Event>{
 				throw new ArrayIndexOutOfBoundsException();				
 			}
 		});
-        if ((holder.txtTitle.getText().equals(""))&&(holder.imgIcon.getText().equals(""))) {
-        	LinearLayout l = (LinearLayout)row2.findViewById(R.id.asdflayout);
-        	l.setVisibility(8);
-        }
+        LinearLayout l = (LinearLayout)row2.findViewById(R.id.asdflayout);
+        l.setVisibility(0);
         return row2;
     }
    

@@ -3,7 +3,8 @@
     android:orientation="horizontal"
     android:id="@+id/asdflayout"
     android:layout_height="fill_parent"
-    android:layout_width="fill_parent">
+    android:layout_width="fill_parent"
+    android:visibility="8">
     
     <RelativeLayout
         android:layout_width="wrap_content"
