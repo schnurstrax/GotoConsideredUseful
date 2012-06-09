@@ -9,7 +9,7 @@ public class Event {
 	private String title;
 	private String description;
 	private String location;
-	private ArrayList<String> locationProposals = new ArrayList<String>();
+	private ArrayList<Address> locationProposals = new ArrayList<Address>();
 	
 	private long startDate;
 	private long endDate;
@@ -29,7 +29,7 @@ public class Event {
 	}
 
 		
-	public void addLocationProposal(String proposal) {
+	public void addLocationProposal(Address proposal) {
 		this.locationProposals.add(proposal);
 	}
 	
@@ -57,7 +57,7 @@ public class Event {
 		return endDate;
 	}
 	
-	public ArrayList<String> getLocationProposals() {
+	public ArrayList<Address> getLocationProposals() {
 		return locationProposals;
 	}
 
@@ -85,7 +85,7 @@ public class Event {
 		this.endDate = endDate;
 	}
 	
-	public void setLocationProposals(ArrayList<String> locationProposals) {
+	public void setLocationProposals(ArrayList<Address> locationProposals) {
 		this.locationProposals = locationProposals;
 	}
 }

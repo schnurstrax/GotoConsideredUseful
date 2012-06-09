@@ -7,10 +7,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class GotoConsideredUsefulActivity extends Activity {
 	
@@ -31,6 +30,10 @@ public class GotoConsideredUsefulActivity extends Activity {
 		
 		// Try to add locations using contact information.
 		ContactHandler contactHandler = new ContactHandler(this);
+		//ArrayList<Contact> contacts = contactHandler.getContactsWithAddresses();
+		//Log.v("CONTACT__XXX", ""+contacts.get(1).getName());
+//		Log.v("CONTACT__XXX1", ""+contacts.size());
+//		Log.v("CONTACT__XXX2", ""+contacts.get(1).getName());
 		contactHandler.addLocationsToEvents(events);
 		
 		// Convert ArrayList to Event-Array.
