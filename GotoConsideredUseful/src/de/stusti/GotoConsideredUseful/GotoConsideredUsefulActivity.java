@@ -9,7 +9,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class GotoConsideredUsefulActivity extends Activity {
 	
@@ -36,7 +38,30 @@ public class GotoConsideredUsefulActivity extends Activity {
 	  	setContentView(R.layout.main2);	  	
 		adapterThingy adap = new adapterThingy(this, R.layout.termin_listitem, eventArray);
 		listView = (ListView)findViewById(R.id.listView1);       
-        View header = (View)getLayoutInflater().inflate(R.layout.termin_listitem, null);
+        final View header = (View)getLayoutInflater().inflate(R.layout.termin_listitem, null);
+        Button call = (Button)header.findViewById(R.id.call);
+        call.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        Button maps = (Button)header.findViewById(R.id.maps);
+        maps.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				TextView t = (TextView)header.findViewById(R.id.location);
+				callMap((String) t.getText());
+			}
+		});
+        header.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				TextView t = (TextView)header.findViewById(R.id.location);
+				callGeo((String) t.getText());
+			}
+		});
         listView.addHeaderView(header);    
         listView.setAdapter(adap);
 	}
