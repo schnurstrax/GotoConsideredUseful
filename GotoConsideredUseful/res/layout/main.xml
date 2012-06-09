@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.maps.MapView
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:clickable="true"
+    android:apiKey="0CGmFurqULo8bCJ5BGpjCVg6APc30p-Btlo-Z8g">
+
+    <com.google.android.maps.MapView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mapview"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:clickable="true"
-    android:apiKey="0CGmFurqULo8bCJ5BGpjCVg6APc30p-Btlo-Z8g"
+    />
     
-/>
+     <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/eventList"
+     />
+     
+</LinearLayout>
+
