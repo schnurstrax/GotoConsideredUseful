@@ -36,9 +36,7 @@ public class GotoConsideredUsefulActivity extends Activity {
 	  	setContentView(R.layout.main2);	  	
 		adapterThingy adap = new adapterThingy(this, R.layout.termin_listitem, eventArray);
 		listView = (ListView)findViewById(R.id.listView1);       
-        final View header = (View)getLayoutInflater().inflate(R.layout.termin_listitem, null);
-        
-        
+		View header = (View)getLayoutInflater().inflate(R.layout.listview_header_row, null);
         listView.addHeaderView(header);    
         listView.setAdapter(adap);
 	}

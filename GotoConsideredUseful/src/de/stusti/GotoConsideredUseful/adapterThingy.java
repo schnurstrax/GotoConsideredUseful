@@ -71,8 +71,8 @@ public class adapterThingy extends ArrayAdapter<Event>{
 				throw new ArrayIndexOutOfBoundsException();				
 			}
 		});
-        LinearLayout l = (LinearLayout)row2.findViewById(R.id.asdflayout);
-        l.setVisibility(View.VISIBLE);
+       // LinearLayout l = (LinearLayout)row2.findViewById(R.id.asdflayout);
+       // l.setGravity(gravity);
         return row2;
     }
    
