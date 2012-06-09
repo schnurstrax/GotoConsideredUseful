@@ -73,7 +73,7 @@ public class adapterThingy extends ArrayAdapter<Event>{
 		});
         if ((holder.txtTitle.getText().equals(""))&&(holder.imgIcon.getText().equals(""))) {
         	LinearLayout l = (LinearLayout)row2.findViewById(R.id.asdflayout);
-        	l.postInvalidate();
+        	l.setVisibility(8);
         }
         return row2;
     }
