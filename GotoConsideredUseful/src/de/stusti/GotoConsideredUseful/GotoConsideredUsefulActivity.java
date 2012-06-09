@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class GotoConsideredUsefulActivity extends Activity {
 	
@@ -35,7 +37,9 @@ public class GotoConsideredUsefulActivity extends Activity {
 	  	setContentView(R.layout.main2);	  	
 		adapterThingy adap = new adapterThingy(this, R.layout.termin_listitem, eventArray);
 		listView = (ListView)findViewById(R.id.listView1);       
-        View header = (View)getLayoutInflater().inflate(R.layout.termin_listitem, null);
+        final View header = (View)getLayoutInflater().inflate(R.layout.termin_listitem, null);
+        
+        
         listView.addHeaderView(header);    
         listView.setAdapter(adap);
 	}

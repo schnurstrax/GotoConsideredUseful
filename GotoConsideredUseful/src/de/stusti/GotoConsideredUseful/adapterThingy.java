@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class adapterThingy extends ArrayAdapter<Event>{
@@ -26,11 +27,10 @@ public class adapterThingy extends ArrayAdapter<Event>{
         View row = convertView;
         WeatherHolder holder = null;
        
-        if(row == null)
+        if((row == null) || ((((TextView) row.findViewById(R.id.event)).getText() == "") && (((TextView) row.findViewById(R.id.location)).getText() == "")))
         {
             LayoutInflater inflater = ((Activity)context).getLayoutInflater();
             row = inflater.inflate(layoutResourceId, parent, false);
-           
             holder = new WeatherHolder();
             holder.imgIcon = (TextView)row.findViewById(R.id.location);
             holder.txtTitle = (TextView)row.findViewById(R.id.event);
@@ -45,8 +45,32 @@ public class adapterThingy extends ArrayAdapter<Event>{
         Event weather = data[position];
         holder.txtTitle.setText(weather.getTitle());
         holder.imgIcon.setText(weather.getLocation());
-       
-        return row;
+        final View row2 = row;
+        row2.setOnClickListener(new View.OnClickListener() {
+			
+ 			public void onClick(View v) {
+ 				TextView t = (TextView)row2.findViewById(R.id.location);
+ 				GotoConsideredUsefulActivity goa = (GotoConsideredUsefulActivity)context;
+ 				goa.callGeo((String) t.getText());
+ 			}
+ 		});
+        Button maps = (Button)row2.findViewById(R.id.maps);
+        maps.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				TextView t = (TextView)row2.findViewById(R.id.location);
+				GotoConsideredUsefulActivity goa = (GotoConsideredUsefulActivity)context;
+				goa.callMap((String) t.getText());
+			}
+		});
+        Button call = (Button)row2.findViewById(R.id.call);
+        call.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				throw new ArrayIndexOutOfBoundsException();				
+			}
+		});
+        return row2;
     }
    
     static class WeatherHolder
