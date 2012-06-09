@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
@@ -56,14 +57,15 @@ public class MapViewActivity extends MapActivity {
 	}
 	
 	private GeoPoint getNearestPointByAddress(String marker) throws IOException {
-		List<GeoPoint> points = getPointsByAddress(marker);
+		Location currentLocation = getBestLocation();
+		List<GeoPoint> points = getPointsByAddress(marker + " " + getCountry(currentLocation));
 
-		return getNearest(getBestLocation(), points);
+		return getNearest(currentLocation, points);
 	}
 
 	private List<GeoPoint> getPointsByAddress(String address) throws IOException {
-	    Geocoder geo = new Geocoder(this);
-	    List<Address> addresses = geo.getFromLocationName(address, 20);	  
+	    Geocoder geocoder = new Geocoder(this);
+	    List<Address> addresses = geocoder.getFromLocationName(address, 20);	  
 	    
 	    return convertAddressesToPoints(addresses);
 	}
@@ -81,6 +83,12 @@ public class MapViewActivity extends MapActivity {
 	private Location getBestLocation() {
 		LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		return locationManager.getLastKnownLocation(locationManager.getBestProvider(new Criteria(), true));
+	}
+	
+	private String getCountry(Location location) throws IOException {
+		Geocoder geocoder = new Geocoder(this);
+	    List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+	    return addresses.get(0).getCountryName();
 	}
 	
 	private GeoPoint getNearest(Location location, List<GeoPoint> points) {
