@@ -32,6 +32,7 @@ public class MapViewActivity extends MapActivity {
 	    MapView mapView = (MapView) findViewById(R.id.mapview);
 	    mapView.setBuiltInZoomControls(true);
 	    
+	    
 	    List<Overlay> mapOverlays = mapView.getOverlays();
 
 	    Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
@@ -44,6 +45,7 @@ public class MapViewActivity extends MapActivity {
 			overlayitem = getOverlayByAddress(marker, "Test");
 			itemizedoverlay.addOverlay(overlayitem);
 		    mapOverlays.add(itemizedoverlay);
+		    mapView.getController().setCenter(overlayitem.getPoint());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
