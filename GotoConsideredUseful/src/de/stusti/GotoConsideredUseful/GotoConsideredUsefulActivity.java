@@ -71,4 +71,12 @@ public class GotoConsideredUsefulActivity extends ListActivity {
     	Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + destination));
         startActivity(i);
     }
+	
+	protected void callMap(String destination) {
+		Intent intent = new Intent(this, MapViewActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putString("marker", destination);
+		intent.putExtras(bundle);
+		startActivity(intent);
+	}
 }
