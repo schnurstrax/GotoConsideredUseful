@@ -50,7 +50,7 @@ public class EventHandler {
 		Uri calendars = Uri.parse("content://com.android.calendar/events");
 
 		String[] projection = fieldNames;
-		String selection = "dtstart";	        
+		String selection = null;	        
 	    String[] selectionArgs = null;	        
 	    String sortOrder = null;	
 	    
