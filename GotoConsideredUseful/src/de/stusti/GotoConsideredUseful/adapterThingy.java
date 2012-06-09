@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class adapterThingy extends ArrayAdapter<Event>{
@@ -70,6 +71,8 @@ public class adapterThingy extends ArrayAdapter<Event>{
 				throw new ArrayIndexOutOfBoundsException();				
 			}
 		});
+       // LinearLayout l = (LinearLayout)row2.findViewById(R.id.asdflayout);
+       // l.setGravity(gravity);
         return row2;
     }
    
