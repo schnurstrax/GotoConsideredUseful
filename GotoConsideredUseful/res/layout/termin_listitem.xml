@@ -17,7 +17,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:height="30dp"
-            android:text="Mittagessen Zuhause"
+            android:text="Mittagessen"
             android:textSize="18dp"
             android:textStyle="bold" />
 
@@ -42,7 +42,7 @@
             android:id="@+id/location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gründerhaus, TU Berlin"
+            android:text="Gründerhaus"
             android:textSize="16dp" />
         </LinearLayout>
 
@@ -52,22 +52,21 @@
     
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_weight="0.2"
         android:layout_height="fill_parent"
-        android:orientation="vertical">
+        android:orientation="horizontal">
         <Button
 	        android:id="@+id/call"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_marginLeft="5dip"
 	        android:text=""
-	        android:background="@drawable/call" />
+	        android:background="@drawable/call64" />
         <Button
             android:id="@+id/maps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dip"
-            android:background="@drawable/maps" />
+            android:background="@drawable/maps64" />
         
     </LinearLayout>
 </LinearLayout>
