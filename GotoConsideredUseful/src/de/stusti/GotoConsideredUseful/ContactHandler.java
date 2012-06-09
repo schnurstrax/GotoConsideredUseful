@@ -1,12 +1,29 @@
 package de.stusti.GotoConsideredUseful;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 
-public class ContactHandler extends Activity {
+public class ContactHandler {
 
+	protected Activity activity;
+	
+	public ContactHandler(Activity activity) {
+		this.activity = activity;
+	}
+	
+	public void addLocationsToEvents(ArrayList<Event> events) {
+		
+		for(Event event: events) {
+			if ((null == event.getLocation()) || ("" == event.getLocation())) {
+				
+			}
+		}
+	}
+	
 //	public ArrayList<Event> getContacts() {
 //		ArrayList<Event> contacts = new ArrayList<Event>();
 //		return contacts;
@@ -52,7 +69,7 @@ public class ContactHandler extends Activity {
         String[] selectionArgs = null;      
         String sortOrder = ContactsContract.Contacts.DISPLAY_NAME + " COLLATE LOCALIZED ASC";
 
-        Cursor managedCursor = managedQuery(contactsUri, projection, selection, selectionArgs, sortOrder);
+        Cursor managedCursor = this.activity.managedQuery(contactsUri, projection, selection, selectionArgs, sortOrder);
         return managedCursor;
 	}
 
@@ -63,4 +80,6 @@ public class ContactHandler extends Activity {
 	    };
 	    return fields;
 	}
+
+	
 }

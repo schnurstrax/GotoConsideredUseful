@@ -28,6 +28,10 @@ public class GotoConsideredUsefulActivity extends Activity {
 		ArrayList<Event> events = eventHandler.getEvents(today, hours);
 		//ArrayList<Event> eventsWithLocation = eventHandler.getEventsWithLocation(today, hours);		
 		
+		// Try to add locations using contact information.
+		ContactHandler contactHandler = new ContactHandler(this);
+		contactHandler.addLocationsToEvents(events);
+		
 		// Convert ArrayList to Event-Array.
 		Event []eventArray = new Event[events.size()];
 		events.toArray(eventArray);
