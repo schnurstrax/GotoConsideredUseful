@@ -17,12 +17,19 @@ public class GotoConsideredUsefulActivity extends Activity {
 
 		EventHandler eventHandler = new EventHandler(this);
 		Date today = new Date();
-		ArrayList<Event> events = eventHandler.getEvents(today);
+		int hours = 6;
+		ArrayList<Event> events = eventHandler.getEvents(today, hours);
 		 
 		//ContactHandler contactHandler = new ContactHandler(this);
 		
 		TextView tv = new TextView(this);
-		tv.setText("Titel: " + events.get(0).getTitle());
+		String titel = "";
+		
+		for(int i = 0; i<events.size(); i++){
+			titel += events.get(i).getTitle();
+		}
+		tv.setText("Titel: " + titel);
+			
 		setContentView(tv);
 	}
 	
