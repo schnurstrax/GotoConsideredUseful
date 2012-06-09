@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 
 public class EventHandler {
 
 	protected Activity activity;
-	protected String[] fieldNames = new String[] {"calendar_id", "title", "description", "dtstart", "dtend", "eventLocation"};
+	protected String[] fieldNames = new String[] {"calendar_id", "title", "description", "dtstart", "dtend", "eventLocation", "begin"};
 	
 	public EventHandler(Activity activity) {
 		this.activity = activity;
@@ -17,8 +18,9 @@ public class EventHandler {
 	
 	public ArrayList<Event> getEvents(long now, int hours) {	
 		
-		Cursor cursor = getCursor(now, hours);	
+		Cursor cursor = getCursorUsingInstances(now, hours);	
 		int numberOfEvents = cursor.getCount();		
+		Log.v("CURSOR", "" + numberOfEvents);
 		ArrayList<Event> events = new ArrayList<Event>();
 
 		cursor.moveToFirst();		  
@@ -32,7 +34,7 @@ public class EventHandler {
 	}
 	
 	public ArrayList<Event> getEventsWithLocation(long now, int hours) {
-		Cursor cursor = getCursorWithLocation(now, hours);	
+		Cursor cursor = getCursorWithLocationUsingInstances(now, hours);	
 		int numberOfEvents = cursor.getCount();		
 		ArrayList<Event> events = new ArrayList<Event>();
 
@@ -60,6 +62,41 @@ public class EventHandler {
 		return event;
 	}
 	
+	protected Cursor getCursorUsingInstances(long now, int hours) {				
+		String selection = "";
+		String path = "instances/when/" + (now) + "/" + (now + getMillisecondsFromHours(hours));
+		String sortOrder = "begin ASC";
+		Cursor managedCursor = getCalendarManagedCursor(getProjection(), selection, path, sortOrder);
+		
+		return managedCursor;
+	}
+	
+	protected Cursor getCalendarManagedCursor(String[] projection, String selection, String path, String sort) {
+	    
+		Uri calendars = Uri.parse("content://calendar/" + path);
+	    Cursor managedCursor = null;
+	   
+	    try {
+	        managedCursor = this.activity.getContentResolver().query(calendars, projection, selection, null, sort);
+	    } catch (IllegalArgumentException e) {
+	        Log.w("DEBUG", "Failed to get provider at [" + calendars.toString() + "]");
+	    }
+
+	    if (managedCursor == null) {
+	        // try again
+	        calendars = Uri.parse("content://com.android.calendar/" + path);
+	        try {
+	            managedCursor = this.activity.getContentResolver().query(calendars,
+	                    projection, selection, null, sort);
+	        } catch (IllegalArgumentException e) {
+	            Log.w("DEBUG", "Failed to get provider at [" + calendars.toString()+ "]");
+	        }
+	    }
+	    
+	    return managedCursor;
+	}
+	        
+		
 	protected Cursor getCursor(long now, int hours) {				
 
 		Cursor managedCursor = this.activity.managedQuery(getCalendarsUri(), 
@@ -80,6 +117,16 @@ public class EventHandler {
 		return managedCursor;
 	}	
 	
+	protected Cursor getCursorWithLocationUsingInstances(long now, int hours) {		
+	    
+		String selection = "eventLocation NOT NULL";
+		String path = "instances/when/" + (now) + "/" + (now + getMillisecondsFromHours(hours));
+		String sortOrder = "begin ASC";
+		Cursor managedCursor = getCalendarManagedCursor(getProjection(), selection, path, sortOrder);
+		
+		return managedCursor;
+	}	
+	
 	protected Uri getCalendarsUri() {
 		return Uri.parse("content://com.android.calendar/events");
 	}
@@ -90,7 +137,7 @@ public class EventHandler {
 	
 	protected String getSelectionForTimeInterval(long now, int hours)
 	{
-		long end = now + hours*60*60*1000;		
+		long end = now + getMillisecondsFromHours(hours);
 	    String dtStart = Long.toString(now);
 	    String dtEnd = Long.toString(end);
         
@@ -112,5 +159,9 @@ public class EventHandler {
 	protected String[] getEmptySelectionArgs() {
 		String[] selectionArgs = new String[] {};
 		return selectionArgs;
+	}
+	
+	protected long getMillisecondsFromHours(int hours){
+		return hours*60*60*1000;
 	}
 }

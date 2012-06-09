@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -23,22 +24,20 @@ public class GotoConsideredUsefulActivity extends Activity {
 		Calendar calendar = Calendar.getInstance();		
 		
 		long today = calendar.getTimeInMillis();
-		int hours = 448;
+		int hours = 548;
 		ArrayList<Event> events = eventHandler.getEvents(today, hours);
 		//ArrayList<Event> eventsWithLocation = eventHandler.getEventsWithLocation(today, hours);		
 		
 		// Convert ArrayList to Event-Array.
 		Event []eventArray = new Event[events.size()];
 		events.toArray(eventArray);
-
+		
 		// Add events to the listView.
-	  	setContentView(R.layout.main2);
-	  	
+	  	setContentView(R.layout.main2);	  	
 		adapterThingy adap = new adapterThingy(this, R.layout.termin_listitem, eventArray);
 		listView = (ListView)findViewById(R.id.listView1);       
         View header = (View)getLayoutInflater().inflate(R.layout.termin_listitem, null);
-        listView.addHeaderView(header);
-    
+        listView.addHeaderView(header);    
         listView.setAdapter(adap);
 	}
 	

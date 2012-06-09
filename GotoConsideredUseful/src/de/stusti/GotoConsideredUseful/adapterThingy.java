@@ -32,8 +32,8 @@ public class adapterThingy extends ArrayAdapter<Event>{
             row = inflater.inflate(layoutResourceId, parent, false);
            
             holder = new WeatherHolder();
-            holder.imgIcon = (TextView)row.findViewById(R.id.event);
-            holder.txtTitle = (TextView)row.findViewById(R.id.location);
+            holder.imgIcon = (TextView)row.findViewById(R.id.location);
+            holder.txtTitle = (TextView)row.findViewById(R.id.event);
            
             row.setTag(holder);
         }
