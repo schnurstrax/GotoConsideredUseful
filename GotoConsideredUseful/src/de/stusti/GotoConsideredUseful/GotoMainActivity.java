@@ -8,11 +8,15 @@ import java.util.List;
 
 import android.app.AlertDialog.Builder;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.content.Intent;
 import android.database.Cursor;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -37,11 +41,13 @@ public class GotoMainActivity extends ListActivity {
 	ArrayList<Item> items = new ArrayList<Item>();
 	static final int HOURS = 12;
 	protected List<String> selectedCalendars;
+	protected LocationListener locationListener;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		activateGPS();
 		ArrayList<Event> events = getEvents();
 		addEventsToItemList(events, items);
 		EntryAdapter adapter = new EntryAdapter(this, items);
@@ -157,14 +163,11 @@ public class GotoMainActivity extends ListActivity {
 protected void onPause() {
 	super.onPause();
 	//remove gps 
-	/*
 	LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-	locationManager.removeUpdates(this.locationListener);*/
+	locationManager.removeUpdates(this.locationListener);
 }
 
 protected void activateGPS() {
-	/*
-}
 	// Acquire a reference to the system Location Manager
 	LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
@@ -186,7 +189,6 @@ protected void activateGPS() {
 
 	// Register the listener with the Location Manager to receive location updates
 	locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 6000, 0, this.locationListener);
-	*/
 }
 
 
