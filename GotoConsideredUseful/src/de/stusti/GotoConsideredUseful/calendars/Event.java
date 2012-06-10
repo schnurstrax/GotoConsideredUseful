@@ -38,7 +38,7 @@ public class Event {
 		calendar.setTimeInMillis(getStartDate());
 		
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm");
-		String formattedStartTime = dateFormat.format(calendar.getTime()) + "Uhr";
+		String formattedStartTime = dateFormat.format(calendar.getTime()) + " Uhr";
 		
 		return formattedStartTime;
 	}
@@ -58,7 +58,7 @@ public class Event {
 	}	
 	
 	public boolean locationFromCalendarIsSet() {
-		return ((null != locationFromCalendarEvent) && (locationFromCalendarEvent.trim().length() > 0)); 		
+		return ((null != getLocationFromCalendarEvent()) && (getLocationFromCalendarEvent().trim().length() > 0)); 		
 	}
 	
 	public void addLocationProposal(Address proposal) {
