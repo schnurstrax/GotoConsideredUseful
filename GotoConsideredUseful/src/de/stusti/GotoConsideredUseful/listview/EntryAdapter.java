@@ -3,6 +3,8 @@ package de.stusti.GotoConsideredUseful.listview;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +18,11 @@ public class EntryAdapter extends ArrayAdapter<Item> {
 	private Context context;
 	private ArrayList<Item> items;
 	private LayoutInflater vi;
+	private EntryAdapter thishere;
 
 	public EntryAdapter(Context context,ArrayList<Item> items) {
 		super(context,0, items);
+		thishere = this;
 		this.context = context;
 		this.items = items;
 		vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -44,6 +48,15 @@ public class EntryAdapter extends ArrayAdapter<Item> {
 
 				final TextView sectionViewAdditionalInfo = (TextView) v.findViewById(R.id.list_item_section_text_additional_info);
 				sectionViewAdditionalInfo.setText(si.getAdditionalInfo());
+				
+				v.findViewById(R.id.list_item_entry_drawable_phonecall).setOnClickListener(new View.OnClickListener() {
+					
+					public void onClick(View v) {
+						thishere.editCalendarEvent(si.getEventID());
+						
+					}
+				});
+				
 	
 			}else{
 				EntryItem ei = (EntryItem)i;
@@ -56,6 +69,7 @@ public class EntryAdapter extends ArrayAdapter<Item> {
 				if(subtitle != null)
 					subtitle.setText(ei.subtitle);
 				final EntryItem ei2 = ei;
+				
 				v.findViewById(R.id.list_item_entry_drawable).setOnClickListener(new View.OnClickListener() {
 					
 					public void onClick(View v) {
@@ -71,5 +85,18 @@ public class EntryAdapter extends ArrayAdapter<Item> {
 		}
 		return v;
 	}
+	
+	private void editCalendarEvent(long calendarEventID){
+	    Context context = getContext();
+	    Intent intent = new Intent(Intent.ACTION_EDIT);
+	    intent.setData(Uri.parse("content://com.android.calendar/events/" + String.valueOf(calendarEventID)));
+	    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+	        | Intent.FLAG_ACTIVITY_SINGLE_TOP
+	        | Intent.FLAG_ACTIVITY_CLEAR_TOP
+	        | Intent.FLAG_ACTIVITY_NO_HISTORY
+	        | Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+	   context.startActivity(intent);
+	}
+
 
 }
