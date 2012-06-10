@@ -1,4 +1,4 @@
-package de.stusti.GotoConsideredUseful.location;
+package de.stusti.GotoConsideredUseful.contacts;
 
 
 public class Address {
@@ -12,6 +12,18 @@ public class Address {
 	protected String type;
 	
 	protected String dataSource; 
+	
+	public String getAddressString() {
+		String addressString = "";
+		
+		addressString += getStreet();
+		addressString += " " + getPostalCode();
+		addressString += " " + getCity();
+		addressString += " " + getState();
+		addressString += " " + getPostBox();
+		
+		return addressString;
+	}
 	
 	public String getPostBox() {
 		return postBox;
