@@ -37,7 +37,7 @@ public class EntryAdapter extends ArrayAdapter<Item> {
 		final Item i = items.get(position);
 		if (i != null) {
 			if(i.isSection()){
-				SectionItem si = (SectionItem)i;
+				final SectionItem si = (SectionItem)i;
 				v = vi.inflate(R.layout.list_item_section, null);
 
 				v.setOnClickListener(null);
@@ -50,8 +50,6 @@ public class EntryAdapter extends ArrayAdapter<Item> {
 				final TextView sectionViewAdditionalInfo = (TextView) v.findViewById(R.id.list_item_section_text_additional_info);
 				sectionViewAdditionalInfo.setText(si.getAdditionalInfo());
 				
-				
-				
 				class mylistener implements OnClickListener{
 					private SectionItem si;
 					
@@ -60,12 +58,21 @@ public class EntryAdapter extends ArrayAdapter<Item> {
 					}
 					
 					public void onClick(View v) {
-						thishere.editCalendarEvent(si.getEventID());
+						thishere.editCalendarEvent(si.getEventId());
 					}
 				};
 				OnClickListener listener = new mylistener(si);
 				
 				v.findViewById(R.id.list_item_entry_drawable_phonecall).setOnClickListener(listener);
+				
+//				v.findViewById(R.id.list_item_entry_drawable_phonecall).setOnClickListener(new View.OnClickListener() {
+//					
+//					public void onClick(View v) {			
+//						long id = si.getEventId();
+//						thishere.editCalendarEvent(id);
+//						
+//					}
+//				});
 				
 	
 			}else{

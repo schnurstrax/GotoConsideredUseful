@@ -125,14 +125,14 @@ public class EventHandler {
 	
 	protected Event getEventFromCurrentPosition(Cursor cursor) {
 		Event event = new Event();		
-		event.setCalendarId(cursor.getInt(0));
+		event.setCalendarId(cursor.getLong(0));
 		event.setTitle(cursor.getString(1));
 		event.setDescription(cursor.getString(2));
 		event.setStartDate(cursor.getLong(3));
 		event.setEndDate(cursor.getLong(4));
 		event.setLocationFromCalendarEvent(cursor.getString(5));	
 		event.setBegin(cursor.getLong(6));
-		event.setEventId(cursor.getInt(7));	
+		event.setEventId(cursor.getLong(7));	
 		
 		return event;
 	}

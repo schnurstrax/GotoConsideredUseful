@@ -11,8 +11,8 @@ import de.stusti.GotoConsideredUseful.contacts.Contact;
 
 public class Event {
 
-	private int calendar_id;
-	private int event_id;
+	private long calendar_id;
+	private long event_id;
 	private String title;
 	private String description;
 	private String locationFromCalendarEvent;
@@ -27,7 +27,7 @@ public class Event {
 		
 	}
 
-	public Event(int id, String title, String description, String location, long start, long end) {
+	public Event(long id, String title, String description, String location, long start, long end) {
 		this.calendar_id = id;
 		this.title = title;
 		this.description = description;
@@ -81,11 +81,11 @@ public class Event {
 		this.contactProposals.addAll(contactProposals);
 	}
 	
-	public int getCalendarId() {
+	public long getCalendarId() {
 		return calendar_id;
 	}
 	
-	public int getEventId() {
+	public long getEventId() {
 		return event_id;
 	}
 
@@ -121,11 +121,11 @@ public class Event {
 		return contactProposals;
 	}
 	
-	public void setCalendarId(int calendar_id) {
+	public void setCalendarId(long calendar_id) {
 		this.calendar_id = calendar_id;
 	}
 	
-	public void setEventId(int event_id) {
+	public void setEventId(long event_id) {
 		this.event_id = event_id;
 	}
 
