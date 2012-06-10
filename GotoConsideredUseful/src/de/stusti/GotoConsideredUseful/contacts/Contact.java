@@ -1,6 +1,8 @@
-package de.stusti.GotoConsideredUseful;
+package de.stusti.GotoConsideredUseful.contacts;
 
 import java.util.ArrayList;
+
+import de.stusti.GotoConsideredUseful.location.Address;
 
 public class Contact {
 

@@ -1,4 +1,4 @@
-package de.stusti.GotoConsideredUseful;
+package de.stusti.GotoConsideredUseful.location;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,6 +10,11 @@ import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
+
+import de.stusti.GotoConsideredUseful.R;
+import de.stusti.GotoConsideredUseful.R.drawable;
+import de.stusti.GotoConsideredUseful.R.id;
+import de.stusti.GotoConsideredUseful.R.layout;
 
 public class MapViewActivity extends MapActivity {
 	@Override

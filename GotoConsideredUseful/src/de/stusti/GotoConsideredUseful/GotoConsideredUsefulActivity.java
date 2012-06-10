@@ -4,6 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import de.stusti.GotoConsideredUseful.calendars.Event;
+import de.stusti.GotoConsideredUseful.calendars.EventHandler;
+import de.stusti.GotoConsideredUseful.contacts.ContactHandler;
+import de.stusti.GotoConsideredUseful.location.AddressSearcher;
+import de.stusti.GotoConsideredUseful.location.MapViewActivity;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

@@ -1,6 +1,8 @@
-package de.stusti.GotoConsideredUseful;
+package de.stusti.GotoConsideredUseful.calendars;
 
 import java.util.ArrayList;
+
+import de.stusti.GotoConsideredUseful.location.Address;
 
 
 public class Event {
@@ -8,7 +10,7 @@ public class Event {
 	private int calendar_id;
 	private String title;
 	private String description;
-	private String location;
+	private String locationFromCalendarEvent;
 	private ArrayList<Address> locationProposals = new ArrayList<Address>();
 	
 	private long startDate;
@@ -22,15 +24,23 @@ public class Event {
 		this.calendar_id = id;
 		this.title = title;
 		this.description = description;
-		this.location = location;
+		this.locationFromCalendarEvent = location;
 		
 		this.startDate = start;
 		this.endDate = end;
 	}
 
 		
+	public boolean isLocationFromCalendarSet() {
+		return ((null != locationFromCalendarEvent) && (locationFromCalendarEvent.trim().length() > 0)); 		
+	}
+	
 	public void addLocationProposal(Address proposal) {
 		this.locationProposals.add(proposal);
+	}
+	
+	public void addLocationProposals(ArrayList<Address> locationProposals) {
+		this.locationProposals.addAll(locationProposals);
 	}
 	
 	public int getCalendarId() {
@@ -45,8 +55,8 @@ public class Event {
 		return description;
 	}
 
-	public String getLocation() {
-		return location;
+	public String getLocationFromCalendarEvent() {
+		return locationFromCalendarEvent;
 	}
 
 	public long getStartDate() {
@@ -73,8 +83,8 @@ public class Event {
 		this.description = description;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public void setLocationFromCalendarEvent(String location) {
+		this.locationFromCalendarEvent = location;
 	}
 
 	public void setStartDate(long startDate) {

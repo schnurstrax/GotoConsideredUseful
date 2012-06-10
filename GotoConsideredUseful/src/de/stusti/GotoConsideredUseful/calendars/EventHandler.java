@@ -1,6 +1,7 @@
-package de.stusti.GotoConsideredUseful;
+package de.stusti.GotoConsideredUseful.calendars;
 
 import java.util.ArrayList;
+
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -129,7 +130,7 @@ public class EventHandler {
 		event.setDescription(cursor.getString(2));
 		event.setStartDate(cursor.getLong(3));
 		event.setEndDate(cursor.getLong(4));
-		event.setLocation(cursor.getString(5));	
+		event.setLocationFromCalendarEvent(cursor.getString(5));	
 		
 		return event;
 	}
@@ -151,8 +152,6 @@ public class EventHandler {
 		return managedCursor;
 	}
 	
-
-
 	public ArrayList<Event> getEventsWithLocation(long now, int hours) {
 		Cursor cursor = getCursorWithLocationUsingInstances(now, hours);	
 		int numberOfEvents = cursor.getCount();		

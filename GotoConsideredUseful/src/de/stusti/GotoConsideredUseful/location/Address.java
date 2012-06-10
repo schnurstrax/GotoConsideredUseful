@@ -1,4 +1,4 @@
-package de.stusti.GotoConsideredUseful;
+package de.stusti.GotoConsideredUseful.location;
 
 
 public class Address {
@@ -10,6 +10,8 @@ public class Address {
 	protected String postalCode;
 	protected String country;
 	protected String type;
+	
+	protected String dataSource; 
 	
 	public String getPostBox() {
 		return postBox;
@@ -32,7 +34,10 @@ public class Address {
 	public String getType() {
 		return type;
 	}
-
+	public String getDataSource() {
+		return dataSource;
+	}
+	
 	public void setPostBox(String postBox) {
 		this.postBox = postBox;
 	}
@@ -53,5 +58,8 @@ public class Address {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public void setDataSource(String dataSource) {
+		this.dataSource = dataSource;
 	}
 }
