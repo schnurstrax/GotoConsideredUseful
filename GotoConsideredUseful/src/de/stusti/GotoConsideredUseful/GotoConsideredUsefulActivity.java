@@ -19,6 +19,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 public class GotoConsideredUsefulActivity extends Activity {
@@ -26,6 +27,7 @@ public class GotoConsideredUsefulActivity extends Activity {
 	protected ListView listView;
 	protected LocationListener locationListener;
 	
+	GotoConsideredUsefulActivity ggg = this;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
@@ -54,6 +56,16 @@ public class GotoConsideredUsefulActivity extends Activity {
 		adapterThingy adap = new adapterThingy(this, R.layout.termin_listitem, eventArray);
 		listView = (ListView)findViewById(R.id.listView1);       
 		View header = (View)getLayoutInflater().inflate(R.layout.listview_header_row, null);
+		ImageView b = (ImageView)header.findViewById(R.id.settings);
+		b.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				Intent intent = new Intent(ggg, chooseCalendar.class);
+				intent.putExtra("calendars", new String[]{"",""});//TODO String Array Reein
+				startActivityForResult(intent,1);
+				
+			}
+		});
         listView.addHeaderView(header);    
         listView.setAdapter(adap);
 	}
@@ -90,6 +102,13 @@ public class GotoConsideredUsefulActivity extends Activity {
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 6000, 0, this.locationListener);
 	}
 
+	protected void onActivityResult(int i, int res, Intent asd) {
+		Integer ress = new Integer(res);
+		//boolean[] nums = new boolean[ress.bitCount()];
+		// TODO den boolean-array abnehmen
+		
+	}
+	
 	protected void callGeo(String destination){
 		AddressSearcher addressSearcher = new AddressSearcher(this);
 		String query = destination;
