@@ -2,7 +2,7 @@ package de.stusti.GotoConsideredUseful.calendars;
 
 import java.util.ArrayList;
 
-import de.stusti.GotoConsideredUseful.location.Address;
+import de.stusti.GotoConsideredUseful.contacts.Address;
 
 
 public class Event {
@@ -30,8 +30,21 @@ public class Event {
 		this.endDate = end;
 	}
 
+	public ArrayList<String> getLocationStrings() {
+		ArrayList<String> locations = new ArrayList<String>();
 		
-	public boolean isLocationFromCalendarSet() {
+		if (locationFromCalendarIsSet()) {
+			locations.add(getLocationFromCalendarEvent());
+		}
+
+		for (Address address: locationProposals) {
+			locations.add(address.getAddressString());
+		}
+
+		return locations;		
+	}	
+	
+	public boolean locationFromCalendarIsSet() {
 		return ((null != locationFromCalendarEvent) && (locationFromCalendarEvent.trim().length() > 0)); 		
 	}
 	

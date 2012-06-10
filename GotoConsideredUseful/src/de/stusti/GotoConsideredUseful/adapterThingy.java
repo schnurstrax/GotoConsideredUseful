@@ -45,7 +45,7 @@ public class adapterThingy extends ArrayAdapter<Event>{
        
         Event weather = data[position];
         holder.txtTitle.setText(weather.getTitle());
-        holder.imgIcon.setText(weather.getLocationFromCalendarEvent());
+        holder.imgIcon.setText(weather.getLocationStrings().get(0));
         final View row2 = row;
         row2.setOnClickListener(new View.OnClickListener() {
 			
