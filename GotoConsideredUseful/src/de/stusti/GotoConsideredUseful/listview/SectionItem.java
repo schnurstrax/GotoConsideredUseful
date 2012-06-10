@@ -9,7 +9,7 @@ public class SectionItem implements Item{
 
 	private final String title;
 	private final String additionalInfo;
-	private final int eventId;
+	private final long eventId;
 	private final ArrayList<Contact> contactProposals;
 	
 	public SectionItem(String title, String additionalInfo, Event event) {
@@ -23,7 +23,7 @@ public class SectionItem implements Item{
 		return title;
 	}
 	
-	public int getEventId(){
+	public long getEventId(){
 		return eventId;
 	}
 	
