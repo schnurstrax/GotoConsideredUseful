@@ -3,15 +3,19 @@ package de.stusti.GotoConsideredUseful;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
 
+import android.app.AlertDialog.Builder;
 import android.app.ListActivity;
-import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.content.Intent;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -31,6 +35,8 @@ public class GotoMainActivity extends ListActivity {
 	/** Called when the activity is first created. */
 
 	ArrayList<Item> items = new ArrayList<Item>();
+	static final int HOURS = 12;
+	protected List<String> selectedCalendars;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,8 +55,7 @@ public class GotoMainActivity extends ListActivity {
 		Calendar calendar = Calendar.getInstance();
 
 		long today = calendar.getTimeInMillis();
-		int hours = 48;
-		ArrayList<Event> events = eventHandler.getEvents(today, hours);
+		ArrayList<Event> events = eventHandler.getEvents(today, HOURS);
 		// ArrayList<Event> eventsWithLocation =
 		// eventHandler.getEventsWithLocation(today, hours);
 
@@ -77,6 +82,61 @@ public class GotoMainActivity extends ListActivity {
 			}
 		}
 	}
+	
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_MENU) {
+	    	final Builder build = new Builder(this);
+		    build.setTitle("List selection");
+		    build.setCancelable(true);
+		    List<String> calendars = getCalendars();
+		    final String[] strings = calendars.toArray(new String [calendars.size()]);
+		    final OnMultiChoiceClickListener onClick =
+		      new OnMultiChoiceClickListener() {
+		        public void onClick(final DialogInterface dialog,
+		                                      final int which, final boolean isChecked) {
+
+		          if (isChecked) {
+		        	  if (!(selectedCalendars.contains(strings[which]))) {
+		        		  selectedCalendars.add(strings[which]);
+		        	  }
+		          } else {
+		        	 selectedCalendars.remove(strings[which]);
+		          }
+
+		        }
+		      };
+		    build.setMultiChoiceItems(strings, null, onClick);
+		    build.setPositiveButton("Done", new OnClickListener() {
+		      public void onClick(final DialogInterface dialog,
+		                                    final int which) {
+		        String message = null;
+
+		        message = "You selected '" + selectedCalendars.size() + "'";
+		        Toast.makeText(GotoMainActivity.this, message, Toast.LENGTH_LONG).show();
+		      }
+		    });
+		    build.show();
+	    }
+	    return true;
+	}
+	
+	protected List<String> getCalendars() {
+	      
+		  Cursor cursor = this.getContentResolver().query(Uri.parse("content://com.android.calendar/calendars"),
+		          (new String[] {"displayName"}), null, null, null);
+		  List<String> calendars = new LinkedList<String>();
+		  if(cursor.getCount() != 0){				
+			  cursor.moveToFirst();		
+			
+			  while (cursor.moveToNext()) {
+				  calendars.add(cursor.getString(0));
+			  }
+				
+			  cursor.close();
+			  return calendars;
+		  }
+		  return null;
+    }
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
