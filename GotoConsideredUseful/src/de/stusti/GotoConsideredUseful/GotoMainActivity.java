@@ -58,7 +58,10 @@ public class GotoMainActivity extends ListActivity {
 		for (Event event : events) {
 			items.add(new SectionItem(event.getTitle(), event.getFormattedStartTime()));
 
-			//ArrayList<String> locationStrings = event.getLocationStrings();
+			if (event.locationFromCalendarIsSet()) {
+				items.add(new EntryItem(event.getLocationFromCalendarEvent(), ""));
+			}
+			
 			ArrayList<Address> locationProposals = event.getLocationProposals();
 			for (Address address : locationProposals) {
 				items.add(new EntryItem(address.getStreet(), address.getPostCodeAndCity()));
