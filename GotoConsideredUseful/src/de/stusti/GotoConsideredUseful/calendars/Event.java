@@ -6,18 +6,22 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import de.stusti.GotoConsideredUseful.contacts.Address;
+import de.stusti.GotoConsideredUseful.contacts.Contact;
 
 
 public class Event {
 
 	private int calendar_id;
+	private int event_id;
 	private String title;
 	private String description;
 	private String locationFromCalendarEvent;
 	private ArrayList<Address> locationProposals = new ArrayList<Address>();
+	private ArrayList<Contact> contactProposals = new ArrayList<Contact>();
 	
 	private long startDate;
 	private long endDate;
+	private long begin;
 	
 	public Event() {
 		
@@ -35,7 +39,7 @@ public class Event {
 
 	public String getFormattedStartTime() {		
 		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeInMillis(getStartDate());
+		calendar.setTimeInMillis(getBegin());
 		
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm");
 		String formattedStartTime = dateFormat.format(calendar.getTime()) + " Uhr";
@@ -69,8 +73,20 @@ public class Event {
 		this.locationProposals.addAll(locationProposals);
 	}
 	
+	public void addContactProposal(Contact proposal) {
+		this.contactProposals.add(proposal);
+	}
+	
+	public void addContactProposals(ArrayList<Contact> contactProposals) {
+		this.contactProposals.addAll(contactProposals);
+	}
+	
 	public int getCalendarId() {
 		return calendar_id;
+	}
+	
+	public int getEventId() {
+		return event_id;
 	}
 
 	public String getTitle() {
@@ -93,12 +109,24 @@ public class Event {
 		return endDate;
 	}
 	
+	public long getBegin() {
+		return begin;
+	}
+	
 	public ArrayList<Address> getLocationProposals() {
 		return locationProposals;
 	}
 
+	public ArrayList<Contact> getContactProposals() {
+		return contactProposals;
+	}
+	
 	public void setCalendarId(int calendar_id) {
 		this.calendar_id = calendar_id;
+	}
+	
+	public void setEventId(int event_id) {
+		this.event_id = event_id;
 	}
 
 	public void setTitle(String title) {
@@ -121,7 +149,8 @@ public class Event {
 		this.endDate = endDate;
 	}
 	
-	public void setLocationProposals(ArrayList<Address> locationProposals) {
-		this.locationProposals = locationProposals;
+	public void setBegin(long begin){
+		this.begin = begin;
 	}
+	
 }

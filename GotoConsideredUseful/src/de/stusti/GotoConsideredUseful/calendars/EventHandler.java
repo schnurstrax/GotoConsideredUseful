@@ -11,7 +11,7 @@ import android.util.Log;
 public class EventHandler {
 
 	protected Activity activity;
-	protected String[] fieldNames = new String[] {"calendar_id", "title", "description", "dtstart", "dtend", "eventLocation", "begin"};
+	protected String[] fieldNames = new String[] {"calendar_id", "title", "description", "dtstart", "dtend", "eventLocation", "begin", "_id"};
 	private ArrayList<String> notAllowedIds = new ArrayList<String>();
 	private String[] calenderNames;
 	private String[] calendarIds;
@@ -131,6 +131,8 @@ public class EventHandler {
 		event.setStartDate(cursor.getLong(3));
 		event.setEndDate(cursor.getLong(4));
 		event.setLocationFromCalendarEvent(cursor.getString(5));	
+		event.setBegin(cursor.getLong(6));
+		event.setEventId(cursor.getInt(7));	
 		
 		return event;
 	}
