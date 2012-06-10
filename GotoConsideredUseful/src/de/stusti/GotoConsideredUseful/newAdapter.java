@@ -1,4 +1,4 @@
-package de.stusti.GotoConsideredUseful;
+/*package de.stusti.GotoConsideredUseful;
 
 import android.widget.BaseAdapter;
 <<<<<<< HEAD
@@ -260,4 +260,4 @@ public class newAdapter  {
 //        return leView;
 //    }
 >>>>>>> d3fd7df5ff773f3beed71d992f2f352d0d4d92b5
-}
+}*/
