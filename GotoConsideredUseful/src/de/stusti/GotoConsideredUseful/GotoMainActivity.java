@@ -39,7 +39,7 @@ public class GotoMainActivity extends ListActivity {
 	/** Called when the activity is first created. */
 
 	ArrayList<Item> items = new ArrayList<Item>();
-	static final int HOURS = 12;
+	static final int HOURS = 48;
 	protected List<String> selectedCalendars;
 	protected LocationListener locationListener;
 
