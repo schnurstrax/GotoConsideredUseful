@@ -67,7 +67,7 @@ public class GotoMainActivity extends ListActivity {
 
 		// Try to add locations using contact information.
 		ContactHandler contactHandler = new ContactHandler(this);
-		contactHandler.addLocationsToEvents(events);
+		contactHandler.addLocationsAndContactsToEvents(events);
 
 		return events;
 	}

@@ -18,25 +18,19 @@ public class ContactHandler {
 		this.activity = activity;
 	}
 	
-	public void addLocationsToEvents(ArrayList<Event> events) {		
+	public void addLocationsAndContactsToEvents(ArrayList<Event> events) {		
 		for(Event event: events) {
 			String[] titleWords = event.getTitle().split(" ");
-			ArrayList<Address> locationProposals = getLocationProposals(titleWords);
-			event.addLocationProposals(locationProposals);
+			for (int i = 0; i < titleWords.length; i++) {
+				addAddressesAndPhoneNumbersFromContactsWithKeywordInTitle(event, titleWords[i]);				
+			}	
 		}
 	}
+
 	
-	protected ArrayList<Address> getLocationProposals(String[] titleWords) {
-		ArrayList<Address> proposals = new ArrayList<Address>();	
-		
-		for (int i = 0; i < titleWords.length; i++) {
-			proposals = getAddressesFromContactsWithKeywordInTitle(titleWords[i]);				
-		}		
-		return proposals;
-	}
-	
-	protected ArrayList<Address> getAddressesFromContactsWithKeywordInTitle(String keyword) {
-		ArrayList<Address> addressProposals = new ArrayList<Address>();
+	protected void addAddressesAndPhoneNumbersFromContactsWithKeywordInTitle(Event event, String keyword) {
+		ArrayList<Address> locationProposals = new ArrayList<Address>();
+		ArrayList<Contact> contactProposals = new ArrayList<Contact>();
 		
 		ContentResolver contentResolver = this.activity.getContentResolver();
 		String sortOrder = ContactsContract.Contacts.DISPLAY_NAME + " ASC"; 	
@@ -48,7 +42,7 @@ public class ContactHandler {
            while (cursor.moveToNext()) {
            	
                String contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
-               //String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+               String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
                
                // Get addresses.
                String addressSelection = ContactsContract.Data.CONTACT_ID + " = ? AND " + ContactsContract.Data.MIMETYPE + " = ?";
@@ -57,12 +51,29 @@ public class ContactHandler {
                
                if (addressCursor.getCount() > 0) {
             	   ArrayList<Address>  addresses = getAddressesFromCurrentContact(addressCursor);
-            	   addressProposals.addAll(addresses);
+            	   locationProposals.addAll(addresses);
                }
-               addressCursor.close();              
+               addressCursor.close();   
+               
+               // Get contacts (for phone numbers).
+               String[] contactProjection = new String[]{ContactsContract.Data.CONTACT_ID};
+               String contactSelection = ContactsContract.Data.CONTACT_ID + " = ?";
+               String[] contactSelectionArgs = new String[]{contactId};
+               Cursor contactCursor = contentResolver.query(ContactsContract.Data.CONTENT_URI, contactProjection, contactSelection, contactSelectionArgs, null);
+               
+               if (contactCursor.getCount() > 0) {
+            	   Contact contact = new Contact();
+            	   contact.setContactId(contactId);
+            	   contact.setName(contactName);
+            	   
+            	   contactProposals.add(contact);
+               }
+               contactCursor.close();   
            }
-		}		
-		return addressProposals;		
+		}	
+ 	   
+ 	   event.addLocationProposals(locationProposals);
+ 	   event.addContactProposals(contactProposals);
 	}
 
 	protected ArrayList<Address> getAddressesFromCurrentContact(Cursor addressCursor) {		
