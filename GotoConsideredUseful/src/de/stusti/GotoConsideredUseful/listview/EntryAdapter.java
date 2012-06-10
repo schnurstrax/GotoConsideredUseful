@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import de.stusti.GotoConsideredUseful.GotoMainActivity;
 import de.stusti.GotoConsideredUseful.R;
 
 public class EntryAdapter extends ArrayAdapter<Item> {
@@ -54,6 +55,18 @@ public class EntryAdapter extends ArrayAdapter<Item> {
 					title.setText(ei.title);
 				if(subtitle != null)
 					subtitle.setText(ei.subtitle);
+				final EntryItem ei2 = ei;
+				v.findViewById(R.id.list_item_entry_drawable).setOnClickListener(new View.OnClickListener() {
+					
+					public void onClick(View v) {
+						GotoMainActivity g = (GotoMainActivity) context;
+						String asdf = ei2.title;
+						if (!(ei2.subtitle.equals("")))
+							asdf = asdf + ", " + ei2.subtitle;
+						g.callMap(asdf);
+						
+					}
+				});
 			}
 		}
 		return v;
