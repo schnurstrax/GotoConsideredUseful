@@ -51,8 +51,9 @@ public class EntryAdapter extends ArrayAdapter<Item> {
 				
 				v.findViewById(R.id.list_item_entry_drawable_phonecall).setOnClickListener(new View.OnClickListener() {
 					
-					public void onClick(View v) {
-						thishere.editCalendarEvent(si.getEventID());
+					public void onClick(View v) {			
+						//long id = si.getEventId();
+						//thishere.editCalendarEvent(id);
 						
 					}
 				});

@@ -76,7 +76,7 @@ public class GotoMainActivity extends ListActivity {
 			ArrayList<Item> items) {
 
 		for (Event event : events) {
-			items.add(new SectionItem(event.getTitle(), event.getFormattedStartTime()));
+			items.add(new SectionItem(event.getTitle(), event.getFormattedStartTime(), event));
 
 			if (event.locationFromCalendarIsSet()) {
 				items.add(new EntryItem(event.getLocationFromCalendarEvent(), ""));
