@@ -25,6 +25,17 @@ public class Address {
 		return addressString;
 	}
 	
+	public String getPostCodeAndCity() {
+		String postCodeAndCity = "";
+		
+		postCodeAndCity += getPostalCode();
+		postCodeAndCity.trim();
+		postCodeAndCity += " " + getCity();
+		postCodeAndCity.trim();
+		
+		return postCodeAndCity;
+	}
+	
 	public String getPostBox() {
 		return postBox;
 	}

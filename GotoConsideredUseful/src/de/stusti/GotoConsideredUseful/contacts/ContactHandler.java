@@ -3,7 +3,6 @@ package de.stusti.GotoConsideredUseful.contacts;
 import java.util.ArrayList;
 
 import de.stusti.GotoConsideredUseful.calendars.Event;
-import de.stusti.GotoConsideredUseful.location.Address;
 
 import android.app.Activity;
 import android.content.ContentResolver;

@@ -37,7 +37,7 @@ public class GotoConsideredUsefulActivity extends Activity {
 		Calendar calendar = Calendar.getInstance();		
 		
 		long today = calendar.getTimeInMillis();
-		int hours = 548;
+		int hours = 48;
 		ArrayList<Event> events = eventHandler.getEvents(today, hours);
 		//ArrayList<Event> eventsWithLocation = eventHandler.getEventsWithLocation(today, hours);		
 		
