@@ -37,29 +37,33 @@ public class newAdapter extends BaseAdapter {
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
-        LinearLayout leView = new LinearLayout(mContext);
-        leView.setOrientation(LinearLayout.VERTICAL);
-        leView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-        
-        LinearLayout leView2 = new LinearLayout(mContext);
-        leView2.setOrientation(LinearLayout.HORIZONTAL);
-        leView2.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-        
-        TextView teView = new TextView(mContext);
-        TextView timeView = new TextView(mContext);
-        ImageView call = new ImageView(mContext);
-        call.setImageDrawable(mContext.getResources().getDrawable(R.drawable.call64));
-        
-        leView.addView(leView2);
-        
+        LinearLayout leView;    
         LinearLayout leView3 = new LinearLayout(mContext);
         leView3.setOrientation(LinearLayout.VERTICAL);
         leView3.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+    
         
+        if (convertView == null) {  // if it's not recycled, initialize some attributes
+        	leView = new LinearLayout(mContext);
+            leView.setOrientation(LinearLayout.VERTICAL);
+            leView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+            
+            LinearLayout leView2 = new LinearLayout(mContext);
+            leView2.setOrientation(LinearLayout.HORIZONTAL);
+            leView2.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+            
+            TextView teView = new TextView(mContext);
+            TextView timeView = new TextView(mContext);
+            ImageView call = new ImageView(mContext);
+            call.setImageDrawable(mContext.getResources().getDrawable(R.drawable.call64));
+            
+            leView.addView(leView2);
+            
+           } else {
+            leView = (LinearLayout) convertView;
+        }
         ArrayList<Address> alist = input.get(position).getLocationProposals();
-        
-        
-        for(Address a:alist) {
+        for(final Address a:alist) {
         	LinearLayout leView4 = new LinearLayout(mContext);
             leView4.setOrientation(LinearLayout.HORIZONTAL);
             leView4.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
@@ -69,22 +73,25 @@ public class newAdapter extends BaseAdapter {
             contact.setImageDrawable(mContext.getResources().getDrawable(R.drawable.contactssmall));
             ImageView maps = new ImageView(mContext);
             maps.setImageDrawable(mContext.getResources().getDrawable(R.drawable.maps64));
-            	
-        	
+            
+            adr.setText(a.getAddress());
+            maps.setOnClickListener(new View.OnClickListener() {
+				
+				public void onClick(View v) {
+					GotoConsideredUsefulActivity goa = (GotoConsideredUsefulActivity)mContext;
+					goa.callMap(a.getAddress());
+				}
+			});
+            leView4.setOnClickListener(new View.OnClickListener() {
+				
+				public void onClick(View v) {
+					GotoConsideredUsefulActivity goa = (GotoConsideredUsefulActivity)mContext;
+					goa.callGeo(a.getAddress());
+				}
+			});
+            leView3.addView(leView4);
         }
-        
-        
-        
-        if (convertView == null) {  // if it's not recycled, initialize some attributes
-            imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
-        } else {
-            imageView = (ImageView) convertView;
-        }
-
-        imageView.setImageResource(mThumbIds[position]);
-        return imageView;
+        leView.addView(leView3);
+        return leView;
     }
 }

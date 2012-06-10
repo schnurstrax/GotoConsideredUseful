@@ -19,12 +19,64 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 public class GotoConsideredUsefulActivity extends Activity {
 	
 	protected ListView listView;
+	protected LocationListener locationListener;
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+	    super.onCreate(savedInstanceState);
+	    setContentView(R.layout.asdfxml);
+	    activateGPS();
+
+	  	// Get events from calendar.
+		EventHandler eventHandler = new EventHandler(this);
+		Calendar calendar = Calendar.getInstance();		
+		
+		long today = calendar.getTimeInMillis();
+		int hours = 548;
+		ArrayList<Event> events = eventHandler.getEvents(today, hours);
+		//ArrayList<Event> eventsWithLocation = eventHandler.getEventsWithLocation(today, hours);		
+		
+		// Try to add locations using contact information.
+		ContactHandler contactHandler = new ContactHandler(this);
+		contactHandler.addLocationsToEvents(events);
+		
+		// Convert ArrayList to Event-Array.
+		Event []eventArray = new Event[events.size()];
+		events.toArray(eventArray);
+	    GridView gridview = (GridView) findViewById(R.id.gridview);
+	    gridview.setAdapter(new newAdapter(this, events));
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*protected ListView listView;
 	protected LocationListener locationListener;
 	
 	GotoConsideredUsefulActivity ggg = this;
@@ -69,7 +121,7 @@ public class GotoConsideredUsefulActivity extends Activity {
         listView.addHeaderView(header);    
         listView.setAdapter(adap);
 	}
-	
+	*/
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -101,6 +153,7 @@ public class GotoConsideredUsefulActivity extends Activity {
 		// Register the listener with the Location Manager to receive location updates
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 6000, 0, this.locationListener);
 	}
+	
 
 	protected void onActivityResult(int i, int res, Intent asd) {
 		Integer ress = new Integer(res);
