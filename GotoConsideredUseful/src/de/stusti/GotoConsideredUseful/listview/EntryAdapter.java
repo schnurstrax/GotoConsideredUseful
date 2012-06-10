@@ -40,6 +40,10 @@ public class EntryAdapter extends ArrayAdapter<Item> {
 				
 				final TextView sectionView = (TextView) v.findViewById(R.id.list_item_section_text);
 				sectionView.setText(si.getTitle());
+
+				final TextView sectionViewAdditionalInfo = (TextView) v.findViewById(R.id.list_item_section_text_additional_info);
+				sectionViewAdditionalInfo.setText(si.getAdditionalInfo());
+	
 			}else{
 				EntryItem ei = (EntryItem)i;
 				v = vi.inflate(R.layout.list_item_entry, null);

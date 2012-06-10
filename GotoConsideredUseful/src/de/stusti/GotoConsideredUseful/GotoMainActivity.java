@@ -29,9 +29,7 @@ public class GotoMainActivity extends ListActivity {
 
 		ArrayList<Event> events = getEvents();
 		addEventsToItemList(events, items);
-
 		EntryAdapter adapter = new EntryAdapter(this, items);
-
 		setListAdapter(adapter);
 	}
 
@@ -58,7 +56,7 @@ public class GotoMainActivity extends ListActivity {
 			ArrayList<Item> items) {
 
 		for (Event event : events) {
-			items.add(new SectionItem(event.getTitle()));
+			items.add(new SectionItem(event.getTitle(), event.getFormattedStartTime()));
 
 			//ArrayList<String> locationStrings = event.getLocationStrings();
 			ArrayList<Address> locationProposals = event.getLocationProposals();
