@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
@@ -49,13 +50,22 @@ public class EntryAdapter extends ArrayAdapter<Item> {
 				final TextView sectionViewAdditionalInfo = (TextView) v.findViewById(R.id.list_item_section_text_additional_info);
 				sectionViewAdditionalInfo.setText(si.getAdditionalInfo());
 				
-				v.findViewById(R.id.list_item_entry_drawable_phonecall).setOnClickListener(new View.OnClickListener() {
+				
+				
+				class mylistener implements OnClickListener{
+					private SectionItem si;
+					
+					public mylistener(SectionItem si){
+						this.si = si;
+					}
 					
 					public void onClick(View v) {
 						thishere.editCalendarEvent(si.getEventID());
-						
 					}
-				});
+				};
+				OnClickListener listener = new mylistener(si);
+				
+				v.findViewById(R.id.list_item_entry_drawable_phonecall).setOnClickListener(listener);
 				
 	
 			}else{
