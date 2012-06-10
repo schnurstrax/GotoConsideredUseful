@@ -30,7 +30,7 @@ public class GotoConsideredUsefulActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.asdfxml);
+	    
 	    activateGPS();
 
 	  	// Get events from calendar.
@@ -38,19 +38,22 @@ public class GotoConsideredUsefulActivity extends Activity {
 		Calendar calendar = Calendar.getInstance();		
 		
 		long today = calendar.getTimeInMillis();
-		int hours = 548;
+		int hours = 541;
 		ArrayList<Event> events = eventHandler.getEvents(today, hours);
-		//ArrayList<Event> eventsWithLocation = eventHandler.getEventsWithLocation(today, hours);		
+		ArrayList<Event> eventsWithLocation = eventHandler.getEventsWithLocation(today, hours);		
 		
 		// Try to add locations using contact information.
 		ContactHandler contactHandler = new ContactHandler(this);
 		contactHandler.addLocationsToEvents(events);
 		
 		// Convert ArrayList to Event-Array.
-		Event []eventArray = new Event[events.size()];
+	    Event []eventArray = new Event[events.size()];
 		events.toArray(eventArray);
+		setContentView(R.layout.asdfxml);
 	    GridView gridview = (GridView) findViewById(R.id.gridview);
-	    gridview.setAdapter(new newAdapter(this, events));
+	    newAdapter newa = new newAdapter(this, events);
+	    gridview.setAdapter(newa);
+	    
 	}
 	
 	
