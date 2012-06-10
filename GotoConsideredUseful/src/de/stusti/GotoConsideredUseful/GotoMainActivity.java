@@ -35,6 +35,7 @@ public class GotoMainActivity extends ListActivity {
 	/** Called when the activity is first created. */
 
 	ArrayList<Item> items = new ArrayList<Item>();
+	static final int HOURS = 12;
 	protected List<String> selectedCalendars;
 
 	@Override
@@ -54,8 +55,7 @@ public class GotoMainActivity extends ListActivity {
 		Calendar calendar = Calendar.getInstance();
 
 		long today = calendar.getTimeInMillis();
-		int hours = 48;
-		ArrayList<Event> events = eventHandler.getEvents(today, hours);
+		ArrayList<Event> events = eventHandler.getEvents(today, HOURS);
 		// ArrayList<Event> eventsWithLocation =
 		// eventHandler.getEventsWithLocation(today, hours);
 
