@@ -1,8 +1,11 @@
 package de.stusti.GotoConsideredUseful.calendars;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
-import de.stusti.GotoConsideredUseful.location.Address;
+import de.stusti.GotoConsideredUseful.contacts.Address;
 
 
 public class Event {
@@ -30,9 +33,32 @@ public class Event {
 		this.endDate = end;
 	}
 
+	public String getFormattedStartTime() {		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(getStartDate());
 		
-	public boolean isLocationFromCalendarSet() {
-		return ((null != locationFromCalendarEvent) && (locationFromCalendarEvent.trim().length() > 0)); 		
+		DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+		String formattedStartTime = dateFormat.format(calendar.getTime()) + " Uhr";
+		
+		return formattedStartTime;
+	}
+	
+	public ArrayList<String> getLocationStrings() {
+		ArrayList<String> locations = new ArrayList<String>();
+		
+		if (locationFromCalendarIsSet()) {
+			locations.add(getLocationFromCalendarEvent());
+		}
+
+		for (Address address: locationProposals) {
+			locations.add(address.getAddressString());
+		}
+
+		return locations;		
+	}	
+	
+	public boolean locationFromCalendarIsSet() {
+		return ((null != getLocationFromCalendarEvent()) && (getLocationFromCalendarEvent().trim().length() > 0)); 		
 	}
 	
 	public void addLocationProposal(Address proposal) {
