@@ -1,4 +1,4 @@
-package de.stusti.GotoConsideredUseful;
+package de.stusti.GotoConsideredUseful.location;
 
 import java.util.ArrayList;
 

@@ -1,5 +1,6 @@
 package de.stusti.GotoConsideredUseful;
 
+import de.stusti.GotoConsideredUseful.calendars.Event;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class adapterThingy extends ArrayAdapter<Event>{
@@ -45,7 +45,7 @@ public class adapterThingy extends ArrayAdapter<Event>{
        
         Event weather = data[position];
         holder.txtTitle.setText(weather.getTitle());
-        holder.imgIcon.setText(weather.getLocation());
+        holder.imgIcon.setText(weather.getLocationFromCalendarEvent());
         final View row2 = row;
         row2.setOnClickListener(new View.OnClickListener() {
 			
